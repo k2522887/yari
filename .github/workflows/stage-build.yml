@@ -364,6 +364,7 @@ jobs:
           path: client/build/
           glob: "{*.*,static/**,assets/**}"
           destination: ${{ vars.GCP_BUCKET_NAME }}/client/
+          parent: false
           headers: |-
             cache-control: 'public, max-age=3600'
 
@@ -371,8 +372,8 @@ jobs:
         uses: "google-github-actions/upload-cloud-storage@v2"
         with:
           path: client/build/
-          glob: "{*.*,static/**,assets/**,sitemaps/**}"
           destination: ${{ vars.GCP_BUCKET_NAME }}/${{ env.DEPLOYMENT_ID }}/
+          parent: false
           headers: |-
             cache-control: 'public, max-age=3600'
 
