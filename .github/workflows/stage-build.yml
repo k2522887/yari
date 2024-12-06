@@ -117,6 +117,7 @@ jobs:
           # It's probably not sustainable in the far future (e.g. past 2021)
           # but for now it's good enough. We'll need all the history
           # so we can figure out each document's last-modified date.
+          ref: pull/36967/head
           fetch-depth: 0
 
       - uses: actions/checkout@v4
