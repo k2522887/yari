@@ -117,8 +117,13 @@ jobs:
           # It's probably not sustainable in the far future (e.g. past 2021)
           # but for now it's good enough. We'll need all the history
           # so we can figure out each document's last-modified date.
-          ref: pull/36967/head
           fetch-depth: 0
+
+      - name: Switch to PR
+        working-directory: mdn/content
+        run: |
+          git fetch pull/36967/head:pr-36967
+          git checkout pr-36967
 
       - uses: actions/checkout@v4
         if: ${{ ! vars.SKIP_BUILD }}
