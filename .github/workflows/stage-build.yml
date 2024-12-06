@@ -122,7 +122,7 @@ jobs:
       - name: Switch to PR
         working-directory: mdn/content
         run: |
-          git fetch pull/36967/head:pr-36967
+          git fetch origin pull/36967/head:pr-36967
           git checkout pr-36967
 
       - uses: actions/checkout@v4
