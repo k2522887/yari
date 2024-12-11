@@ -42,19 +42,23 @@ export class PlayEditor extends LitElement {
     super();
     this.language = "";
     this.colorScheme = "os-default";
+    this._value = "";
   }
 
   /** @param {string} value */
   set value(value) {
-    let state = EditorState.create({
-      doc: value,
-      extensions: this._extensions(),
-    });
-    this._editor?.setState(state);
+    this._value = value;
+    if (this._editor) {
+      let state = EditorState.create({
+        doc: value,
+        extensions: this._extensions(),
+      });
+      this._editor.setState(state);
+    }
   }
 
   get value() {
-    return this._editor?.state.doc.toString() || "";
+    return this._editor ? this._editor.state.doc.toString() : this._value;
   }
 
   _extensions() {
@@ -104,6 +108,48 @@ export class PlayEditor extends LitElement {
     ];
   }
 
+  async format() {
+    const prettier = await import("prettier/standalone");
+    const config = (() => {
+      switch (this.language) {
+        case "javascript":
+          return {
+            parser: "babel",
+            plugins: [
+              import("prettier/plugins/babel"),
+              // XXX Using .mjs until https://github.com/prettier/prettier/pull/15018 is deployed
+              import("prettier/plugins/estree.mjs"),
+            ],
+          };
+        case "html":
+          return {
+            parser: "html",
+            plugins: [
+              import("prettier/plugins/html"),
+              import("prettier/plugins/postcss"),
+              import("prettier/plugins/babel"),
+              // XXX Using .mjs until https://github.com/prettier/prettier/pull/15018 is deployed
+              import("prettier/plugins/estree.mjs"),
+            ],
+          };
+        case "css":
+          return {
+            parser: "css",
+            plugins: [import("prettier/plugins/postcss")],
+          };
+        default:
+          return undefined;
+      }
+    })();
+    if (config) {
+      const plugins = await Promise.all(config.plugins);
+      this.value = await prettier.format(this.value, {
+        parser: config.parser,
+        plugins,
+      });
+    }
+  }
+
   /** @param {PropertyValues} changedProperties */
   willUpdate(changedProperties) {
     if (
@@ -125,6 +171,7 @@ export class PlayEditor extends LitElement {
 
   firstUpdated() {
     let startState = EditorState.create({
+      doc: this._value,
       extensions: this._extensions(),
     });
     this._editor = new EditorView({
