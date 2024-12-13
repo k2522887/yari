@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.1.1](https://github.com/mdn/yari/compare/v3.1.0...v3.1.1) (2024-12-13)
+
+
+### Miscellaneous
+
+* **deps-dev:** bump sass from 1.82.0 to 1.83.0 ([#12301](https://github.com/mdn/yari/issues/12301)) ([2a1e4e0](https://github.com/mdn/yari/commit/2a1e4e0efa20e06b63289a4238b57782adcb567f))
+* **deps:** bump @mdn/browser-compat-data from 5.6.23 to 5.6.24 ([#12299](https://github.com/mdn/yari/issues/12299)) ([0133803](https://github.com/mdn/yari/commit/0133803b81979f7fbc8c30477a8ed57bb00b4566))
+* **deps:** bump @stripe/stripe-js from 5.2.0 to 5.3.0 ([#12298](https://github.com/mdn/yari/issues/12298)) ([f4dc50b](https://github.com/mdn/yari/commit/f4dc50ba565afdba09dcc8f98818c51c5930f3a2))
+* **deps:** bump openai from 4.76.1 to 4.76.2 ([#12300](https://github.com/mdn/yari/issues/12300)) ([7506fd2](https://github.com/mdn/yari/commit/7506fd2c36386d6ed116f68ece1e7529ec4563c4))
+
 ## [3.1.0](https://github.com/mdn/yari/compare/v3.0.1...v3.1.0) (2024-12-12)
 
 
